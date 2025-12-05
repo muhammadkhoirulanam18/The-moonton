@@ -117,3 +117,6 @@ export default function SignIn() {
         </div>
     );
 }
+
+
+// menambahkan komentar pada setiap bagian kode untuk menjelaskan fungsinya
