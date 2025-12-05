@@ -1,68 +1,107 @@
 import ProgressCard from "./SideBarProgressCard";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
+import { useSidebar } from "@/Components/Context/SidebarContext";
 
 export default function Sidebar() {
+
+    const { isOpen, toggleSidebar } = useSidebar();
+    const { url } = usePage(); 
+
+    const navItem = (label, link, badge) => {
+        const active = url === link;
+        return (
+            <li
+                onClick={() => {
+                    router.visit(link);
+                    toggleSidebar(); // close on mobile
+                }}
+                className={`cursor-pointer px-4 py-2 flex items-center justify-between rounded-xl transition
+                ${active ? "bg-orange-500 text-white" : "hover:bg-orange-100 dark:hover:bg-gray-700"}
+                `}
+            >
+                <span>{label}</span>
+                {badge && (
+                    <span className="text-xs bg-orange-200 text-orange-600 px-2 py-0.5 rounded-full">
+                        {badge}
+                    </span>
+                )}
+            </li>
+        );
+    };
+
     return (
-        <aside className="w-64 bg-white/90 dark:bg-gray-800 shadow-xl border-r border-gray-100 dark:border-gray-700 transition-colors">
-            <div className="px-6 pt-6 pb-2 flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-orange-500 flex items-center justify-center text-white font-black">
-                    M
-                </div>
-                <span className="font-semibold text-lg">MoontoN</span>
-            </div>
+        <>
+            {/* BACKDROP for Mobile */}
+            {isOpen && (
+                <div
+                    onClick={toggleSidebar}
+                    className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+                />
+            )}
 
-            <nav className="px-6 mt-6 text-sm font-medium space-y-6 flex-1">
-                <div>
-                    <p className="uppercase text-xs text-gray-400 mb-3 tracking-wide">
-                        Menu
-                    </p>
-                    <ul className="space-y-2">
-                        <li className="flex items-center gap-2 text-orange-500 bg-orange-50 rounded-xl px-3 py-2 cursor-pointer">
-                            <span className="w-1.5 h-6 rounded-full bg-orange-500" />
-                            <span>Discover</span>
-                        </li>
-                        <li
-                            onClick={() => router.visit("/favorites ")}
-                            className="hover:text-orange-500 cursor-pointer px-3 py-2"
-                        >
-                            Your Favorites
-                        </li>
-                        <li className="hover:text-orange-500 cursor-pointer px-3 py-2">
-                            Downloads
-                        </li>
-                        <li className="hover:text-orange-500 cursor-pointer px-3 py-2 flex justify-between">
-                            <span>Messages</span>
-                            <span className="text-xs bg-orange-100 text-orange-500 px-2 py-0.5 rounded-full">
-                                102
-                            </span>
-                        </li>
-                    </ul>
+            {/* SIDEBAR */}
+            <aside
+                className={`fixed lg:sticky top-0 z-50 h-screen w-64 bg-white/60 dark:bg-gray-800 backdrop-blur-xl 
+                border-r border-gray-200 dark:border-gray-700 shadow-xl overflow-y-auto transition-transform duration-300
+                ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}`}
+            >
+                {/* HEADER */}
+                <div className="flex items-center justify-between px-5 py-6">
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">
+                            M
+                        </div>
+                        <span className="font-semibold text-lg">MoontoN</span>
+                    </div>
+
+                    {/* Close Button Mobile */}
+                    <button onClick={toggleSidebar} className="lg:hidden text-gray-500">
+                        ✕
+                    </button>
                 </div>
 
-                <div>
-                    <p className="uppercase text-xs text-gray-400 mb-3 tracking-wide">
-                        Others
-                    </p>
-                    <ul className="space-y-2">
-                        <li className="hover:text-orange-500 cursor-pointer px-3 py-2">
-                            Payments
-                        </li>
-                        <li className="hover:text-orange-500 cursor-pointer px-3 py-2">
-                            Analytics
-                        </li>
-                        <li className="hover:text-orange-500 cursor-pointer px-3 py-2">
-                            Your Profile
-                        </li>
-                        <li className="hover:text-orange-500 cursor-pointer px-3 py-2">
-                            Logout
-                        </li>
-                    </ul>
+                {/* USER INFO (UI only for now) */}
+                <div className="px-6 mb-4">
+                    <div className="flex items-center gap-3">
+                        <img 
+                            src="/img/avatar.jpg" 
+                            className="w-10 h-10 rounded-full border border-orange-400"
+                        />
+                        <div>
+                            <p className="font-semibold">Granola Sky</p>
+                            <p className="text-xs text-orange-500">Premium Member</p>
+                        </div>
+                    </div>
                 </div>
-            </nav>
 
-            <div className="p-4">
-                <ProgressCard />
-            </div>
-        </aside>
+                {/* MENU */}
+                <nav className="px-4 text-sm space-y-6">
+                    <div>
+                        <p className="uppercase text-xs text-gray-400 mb-2 tracking-widest">Menu</p>
+                        <ul className="space-y-2">
+                            {navItem("Discover", "/")}
+                            {navItem("Your Favorites", "/favorites")}
+                            {navItem("Downloads", "/downloads")}
+                            {navItem("Messages", "/messages", "102")}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p className="uppercase text-xs text-gray-400 mb-2 tracking-widest">Others</p>
+                        <ul className="space-y-2">
+                            {navItem("Payments", "/payments")}
+                            {navItem("Analytics", "/analytics")}
+                            {navItem("Profile", "/profile")}
+                            {navItem("Logout", "/logout")}
+                        </ul>
+                    </div>
+                </nav>
+
+                {/* PROGRESS CARD */}
+                <div className="p-4 mt-auto">
+                    <ProgressCard />
+                </div>
+            </aside>
+        </>
     );
 }
