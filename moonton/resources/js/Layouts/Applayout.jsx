@@ -2,20 +2,27 @@ import Sidebar from "@/Components/Sidebar";
 import SidebarToggle from "@/Components/SidebarToggle";
 import { SidebarProvider } from "@/Components/Context/SidebarContext";
 import TopBar from "@/Components/TopBar";
+import { usePage } from "@inertiajs/react";
 
 export default function AppLayout({ children }) {
+    const { url } = usePage(); // ambil route aktif
+
+    const hideTopBar = url === "/payments"; // halaman tanpa topbar
+
     return (
         <SidebarProvider>
             <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
                 <Sidebar />
 
                 <div className="flex-1 flex flex-col">
-                    <div className="p-4 lg:hidden">
-                        <SidebarToggle />
-                    </div>
+                    {/* Tampilkan TopBar hanya jika bukan halaman payments */}
+                    {!hideTopBar && (
+                        <div className="p-4 lg:p-0">
+                            <TopBar />
+                        </div>
+                    )}
 
-                    <TopBar />
-                    <main className="p-6">{children}</main>
+                    <main className="p-4 sm:p-6 lg:p-10">{children}</main>
                 </div>
             </div>
         </SidebarProvider>
