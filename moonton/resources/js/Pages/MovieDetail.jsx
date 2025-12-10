@@ -6,13 +6,9 @@ import VideoPlayer from "@/Components/VideoPlayer";
 import { useMemo } from "react";
 
 export default function MovieDetail({ id }) {
-    // Gabungkan data
     const allMovies = [...featuredMovies, ...browseMovies];
-
-    // Favorite handler
     const { addFavorite, removeFavorite, isFavorite } = useFavorites();
 
-    // Cari movie berdasarkan id
     const movie = useMemo(() => allMovies.find((m) => m.id == id), [id]);
 
     if (!movie) {
@@ -27,7 +23,7 @@ export default function MovieDetail({ id }) {
 
     return (
         <AppLayout>
-            <div className="max-w-5xl mx-auto pt-4">
+            <div className="max-w-5xl mx-auto pt-4 px-4 sm:px-6 lg:px-0">
                 {/* Back Button */}
                 <button
                     onClick={() => router.visit("/")}
@@ -37,28 +33,34 @@ export default function MovieDetail({ id }) {
                 </button>
 
                 {/* Video Player */}
-                <VideoPlayer url={movie.video} movieId={movie.id} />
+                <div className="w-full">
+                    <VideoPlayer url={movie.video} movieId={movie.id} />
+                </div>
 
                 {/* Movie Info */}
-                <h1 className="text-3xl font-bold mt-6">{movie.title}</h1>
+                <h1 className="text-2xl sm:text-3xl font-bold mt-6">
+                    {movie.title}
+                </h1>
                 <p className="text-gray-400 text-sm">{movie.genre}</p>
 
-                <div className="flex items-center gap-3 mt-3 text-gray-500">
-                    <span className="text-yellow-400">★ {movie.rating}</span>
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-3 text-gray-500 text-sm sm:text-base">
+                    <span className="text-yellow-400 font-semibold">
+                        ★ {movie.rating}
+                    </span>
                     <span>•</span>
                     <span>2022</span>
                     <span>•</span>
                     <span>2h 12m</span>
                 </div>
 
-                <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="mt-4 text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
                     Voluptatibus impedit ratione...
                 </p>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 mt-6">
-                    <button className="px-6 py-3 rounded-xl bg-orange-500 text-white font-semibold shadow hover:opacity-90 transition">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6">
+                    <button className="px-6 py-3 rounded-xl bg-orange-500 text-white font-semibold shadow hover:opacity-90 transition text-center">
                         ▶ Watch Now
                     </button>
 
@@ -68,7 +70,7 @@ export default function MovieDetail({ id }) {
                                 ? removeFavorite(movie.id)
                                 : addFavorite(movie)
                         }
-                        className={`px-6 py-3 rounded-xl font-semibold transition ${
+                        className={`px-6 py-3 rounded-xl font-semibold text-center transition ${
                             isFavorite(movie.id)
                                 ? "bg-red-500 text-white"
                                 : "bg-gray-200 hover:bg-gray-300"
@@ -82,11 +84,20 @@ export default function MovieDetail({ id }) {
 
                 {/* Recommended Movies */}
                 <div className="mt-10">
-                    <h2 className="text-lg font-semibold mb-4">
+                    <h2 className="text-lg sm:text-xl font-semibold mb-4">
                         You may also like
                     </h2>
 
-                    <div className="grid grid-cols-5 gap-6">
+                    <div
+                        className="
+                        grid 
+                        grid-cols-2 
+                        sm:grid-cols-3 
+                        md:grid-cols-4 
+                        lg:grid-cols-5 
+                        gap-4 sm:gap-6
+                    "
+                    >
                         {browseMovies.slice(0, 5).map((m) => (
                             <div
                                 key={m.id}
@@ -95,9 +106,9 @@ export default function MovieDetail({ id }) {
                             >
                                 <img
                                     src={m.image}
-                                    className="rounded-xl w-full h-40 object-cover group-hover:scale-105 transition"
+                                    className="rounded-xl w-full h-32 sm:h-40 object-cover group-hover:scale-105 transition"
                                 />
-                                <p className="text-sm font-semibold mt-2">
+                                <p className="text-sm font-semibold mt-2 truncate">
                                     {m.title}
                                 </p>
                             </div>
