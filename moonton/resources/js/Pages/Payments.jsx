@@ -11,9 +11,9 @@ export default function Pricing() {
 
     return (
         <AppLayout>
-            <div className="px-4 sm:px-6 lg:px-10 py-10">
+            <div className="px-6 sm:px-6 lg:px-10 py-10">
                 {/* MAIN CONTAINER */}
-                <div className="bg-white dark:bg-gray-800 shadow-xl rounded-3xl p-6 sm:p-10 lg:p-16 max-w-6xl mx-auto">
+                <div className="max-w-6xl mx-6">
                     {/* TITLE */}
                     <div className="text-center mb-10">
                         <h1 className="text-2xl sm:text-3xl font-bold">
@@ -25,26 +25,32 @@ export default function Pricing() {
                         </p>
                     </div>
 
+                    
                     {/* TOGGLE MONTHLY / YEARLY */}
                     <div className="flex justify-center mb-12">
-                        <div className="flex bg-gray-100 dark:bg-gray-700 rounded-full p-1 gap-1">
+                        <div className="flex bg-gray-200 dark:bg-gray-700 rounded-full p-1 gap-1">
+                            {/* MONTHLY */}
                             <button
                                 onClick={() => setPlan("monthly")}
-                                className={`px-4 py-2 text-sm rounded-full transition ${
-                                    plan === "monthly"
-                                        ? "bg-white dark:bg-gray-900 shadow font-semibold"
-                                        : "opacity-60"
-                                }`}
+                                className={`px-4 py-2 text-sm rounded-full transition
+                ${
+                    plan === "monthly"
+                        ? "bg-orange-500 text-white shadow font-semibold"
+                        : "text-gray-500 dark:text-gray-300"
+                }`}
                             >
                                 Monthly
                             </button>
+
+                            {/* YEARLY */}
                             <button
                                 onClick={() => setPlan("yearly")}
-                                className={`px-4 py-2 text-sm rounded-full transition ${
-                                    plan === "yearly"
-                                        ? "bg-white dark:bg-gray-900 shadow font-semibold"
-                                        : "opacity-60"
-                                }`}
+                                className={`px-4 py-2 text-sm rounded-full transition
+                ${
+                    plan === "yearly"
+                        ? "bg-orange-500 text-white shadow font-semibold"
+                        : "text-gray-500 dark:text-gray-300"
+                }`}
                             >
                                 Yearly (Save 20%)
                             </button>
@@ -57,10 +63,12 @@ export default function Pricing() {
                         grid 
                         grid-cols-1 
                         md:grid-cols-2 
-                        gap-6 sm:gap-10 
+                        gap-6 sm:gap-8
                         place-items-center
+                        items-start
                     "
                     >
+                        
                         {/* BASIC PLAN */}
                         <motion.div
                             layout
@@ -111,10 +119,10 @@ export default function Pricing() {
                             layout
                             className="
                                 w-full max-w-sm rounded-3xl p-8 
-                                shadow-lg bg-black text-white relative
+                                shadow-lg bg-black text-white relative items-start
                             "
                         >
-                            <div className="absolute top-6 left-6 bg-orange-500 text-white px-3 py-1 rounded-full text-xs">
+                            <div className="absolute top-8 left-8 bg-orange-500 text-white px-3 py-2 rounded-full text-xs">
                                 ★
                             </div>
 

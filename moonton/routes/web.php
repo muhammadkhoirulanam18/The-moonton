@@ -16,7 +16,7 @@ Route::get('/movie/{id}', function ($id) {
 
 Route::get('/favorites', fn() => Inertia::render('Favorites'));
 
-Route::get('/payments', fn() => Inertia::render('Pricing'));
+Route::get('/payments', fn() => Inertia::render('Payments'));
 
 
 require __DIR__.'/auth.php';
