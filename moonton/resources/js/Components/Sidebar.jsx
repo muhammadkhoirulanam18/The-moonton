@@ -1,31 +1,74 @@
 import ProgressCard from "./SideBarProgressCard";
 import { router, usePage } from "@inertiajs/react";
 import { useSidebar } from "./Context/SidebarContext";
+import {
+    Home,
+    Heart,
+    Download,
+    MessageCircle,
+    CreditCard,
+    BarChart3,
+    User,
+    LogOut,
+} from "lucide-react";
 
 export default function Sidebar() {
-    const { isOpen, toggleSidebar, closeSidebar } = useSidebar();
-    const { url } = usePage(); // aktif route
+    const { isOpen, closeSidebar } = useSidebar();
+    const { url } = usePage();
 
-    const menuItem = (label, link, badge) => {
-        const active = url === link;
+    /* =======================
+       DATA MENU
+    ======================= */
+    const menuItems = [
+        { label: "Discover", route: "/", icon: Home },
+        { label: "Your Favorites", route: "/favorites", icon: Heart },
+        { label: "Downloads", route: "/downloads", icon: Download },
+        {
+            label: "Messages",
+            route: "/messages",
+            icon: MessageCircle,
+            badge: "102",
+        },
+    ];
+
+    const otherItems = [
+        { label: "Payments", route: "/payments", icon: CreditCard },
+        { label: "Analytics", route: "/analytics", icon: BarChart3 },
+        { label: "Your Profile", route: "/profile", icon: User },
+        { label: "Logout", route: "/logout", icon: LogOut },
+    ];
+
+    /* =======================
+       RENDER ITEM
+    ======================= */
+    const renderItem = (item) => {
+        const Icon = item.icon;
+        const active = url === item.route;
 
         return (
             <li
+                key={item.label}
                 onClick={() => {
-                    router.visit(link);
-                    closeSidebar(); // tutup sidebar di mobile
+                    router.visit(item.route);
+                    closeSidebar();
                 }}
-                className={`cursor-pointer px-4 py-2 flex items-center justify-between rounded-xl transition
-                ${
-                    active
-                        ? "bg-orange-500 text-white"
-                        : "hover:bg-orange-100 dark:hover:bg-gray-700"
-                }`}
+                className={`
+                    flex items-center justify-between gap-3 px-4 py-2 rounded-xl cursor-pointer transition
+                    ${
+                        active
+                            ? "bg-orange-500 text-white"
+                            : "hover:bg-orange-100 dark:hover:bg-gray-700"
+                    }
+                `}
             >
-                <span>{label}</span>
-                {badge && (
-                    <span className="text-xs bg-orange-200 text-orange-600 px-2 py-0.5 rounded-full">
-                        {badge}
+                <div className="flex items-center gap-3">
+                    <Icon className="w-5 h-5" />
+                    <span>{item.label}</span>
+                </div>
+
+                {item.badge && (
+                    <span className="text-xs bg-orange-100 text-orange-500 px-2 py-0.5 rounded-full">
+                        {item.badge}
                     </span>
                 )}
             </li>
@@ -34,7 +77,7 @@ export default function Sidebar() {
 
     return (
         <>
-            {/* BACKDROP untuk mobile */}
+            {/* BACKDROP MOBILE */}
             {isOpen && (
                 <div
                     onClick={closeSidebar}
@@ -45,11 +88,10 @@ export default function Sidebar() {
             {/* SIDEBAR */}
             <aside
                 className={`
-                    fixed lg:sticky top-0 left-0 z-50 h-screen w-64 
+                    fixed lg:sticky top-0 left-0 z-50 h-screen w-64
                     bg-white/70 dark:bg-gray-800 backdrop-blur-xl
-                    border-r border-gray-200 dark:border-gray-700 
+                    border-r border-gray-200 dark:border-gray-700
                     shadow-xl overflow-y-auto transition-transform duration-300
-
                     ${
                         isOpen
                             ? "translate-x-0"
@@ -58,17 +100,15 @@ export default function Sidebar() {
                 `}
             >
                 {/* HEADER */}
-                <div className="flex items-center justify-between px-5 py-6">
-                    <div
-                        className="flex items-center gap-2 cursor-pointer"
-                        onClick={() => router.visit("/")}
-                    >
-                        <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">
-                            M
-                        </div>
-                        <span className="font-semibold text-lg">MoontoN</span>
-                    </div>
+                <div className="flex items-center gap-2">
+                    <img
+                        src="/assets/images/moonton.svg"
+                        alt="MoontoN Logo"
+                        className="w-auto h-auto p-5"
+                    />
+                </div>
 
+                <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                     <button
                         onClick={closeSidebar}
                         className="lg:hidden text-gray-500 text-xl"
@@ -77,22 +117,6 @@ export default function Sidebar() {
                     </button>
                 </div>
 
-                {/* USER PREVIEW */}
-                {/* <div className="px-6 mb-4">
-                    <div className="flex items-center gap-3">
-                        <img
-                            src="/img/avatar.jpg"
-                            className="w-10 h-10 rounded-full border border-orange-400"
-                        />
-                        <div>
-                            <p className="font-semibold">Granola Sky</p>
-                            <p className="text-xs text-orange-500">
-                                Premium Member
-                            </p>
-                        </div>
-                    </div>
-                </div> */}
-
                 {/* MENU */}
                 <nav className="px-4 text-sm space-y-6">
                     <div>
@@ -100,10 +124,7 @@ export default function Sidebar() {
                             Menu
                         </p>
                         <ul className="space-y-2">
-                            {menuItem("Discover", "/")}
-                            {menuItem("Your Favorites", "/favorites")}
-                            {menuItem("Downloads", "/downloads")}
-                            {menuItem("Messages", "/messages", "102")}
+                            {menuItems.map(renderItem)}
                         </ul>
                     </div>
 
@@ -112,10 +133,7 @@ export default function Sidebar() {
                             Others
                         </p>
                         <ul className="space-y-2">
-                            {menuItem("Payments", "/payments")}
-                            {menuItem("Analytics", "/analytics")}
-                            {menuItem("Your Profile", "/profile")}
-                            {menuItem("Logout", "/logout")}
+                            {otherItems.map(renderItem)}
                         </ul>
                     </div>
                 </nav>

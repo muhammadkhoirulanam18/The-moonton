@@ -34,7 +34,7 @@ export default function TopBar() {
 
                 <button className="w-8 h-8 md:w-9 md:h-9 rounded-full overflow-hidden border-2 border-orange-400">
                     <img
-                        src="/img/avatar.jpg"
+                        src="/assets/images/avatar.png"
                         alt="avatar"
                         className="w-full h-full object-cover"
                     />

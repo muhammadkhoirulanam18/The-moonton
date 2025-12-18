@@ -14,7 +14,7 @@ export default function Pricing() {
             <div className="px-6 sm:px-6 lg:px-10 py-10">
                 {/* MAIN CONTAINER */}
                 <div className="max-w-6xl mx-6">
-                    {/* TITLE */}
+                    {/* TITLE */}   
                     <div className="text-center mb-10">
                         <h1 className="text-2xl sm:text-3xl font-bold">
                             Pricing for Everyone
@@ -25,7 +25,6 @@ export default function Pricing() {
                         </p>
                     </div>
 
-                    
                     {/* TOGGLE MONTHLY / YEARLY */}
                     <div className="flex justify-center mb-12">
                         <div className="flex bg-gray-200 dark:bg-gray-700 rounded-full p-1 gap-1">
@@ -64,15 +63,14 @@ export default function Pricing() {
                         grid-cols-1 
                         md:grid-cols-2 
                         gap-6 sm:gap-8
-                        place-items-center
+                        place-items-start
                         items-start
                     "
                     >
-                        
                         {/* BASIC PLAN */}
                         <motion.div
                             layout
-                            className="w-full max-w-sm border rounded-3xl p-8 shadow-sm bg-white dark:bg-gray-900"
+                            className="w-full border rounded-3xl p-6 shadow-sm bg-white dark:bg-gray-900"
                         >
                             <h2 className="font-semibold text-gray-600 dark:text-gray-300 mb-2">
                                 Basic
@@ -118,8 +116,7 @@ export default function Pricing() {
                         <motion.div
                             layout
                             className="
-                                w-full max-w-sm rounded-3xl p-8 
-                                shadow-lg bg-black text-white relative items-start
+                                w-full rounded-3xl p-6 shadow-lg bg-black text-white relative
                             "
                         >
                             <div className="absolute top-8 left-8 bg-orange-500 text-white px-3 py-2 rounded-full text-xs">
