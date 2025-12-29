@@ -1,7 +1,7 @@
 import AppLayout from "@/Layouts/AppLayout";
-import SectionTitle from "@/Components/SectionTitle";
-import FeaturedMovieCard from "@/Components/FeaturedMovieCard";
-import MovieCard from "@/Components/MovieCard";
+import SectionTitle from "@/Components/UI/SectionTitle";
+import FeaturedMovieCard from "@/Components/Movies/FeaturedMovieCard";
+import MovieCard from "@/Components/Movies/MovieCard";
 import { featuredMovies, browseMovies } from "@/Data/movies";
 
 export default function Home() {

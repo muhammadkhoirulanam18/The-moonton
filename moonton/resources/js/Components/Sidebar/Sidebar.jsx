@@ -53,7 +53,7 @@ export default function Sidebar() {
                     closeSidebar();
                 }}
                 className={`
-                    flex items-center justify-between gap-3 px-4 py-2 rounded-xl cursor-pointer transition
+                    flex items-center justif    y-between gap-3 px-4 py-2 rounded-xl cursor-pointer transition
                     ${
                         active
                             ? "bg-orange-500 text-white"

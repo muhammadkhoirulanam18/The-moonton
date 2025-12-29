@@ -1,6 +1,6 @@
 import AppLayout from "@/Layouts/AppLayout";
 import useFavorites from "@/Hooks/useFavorites";
-import MovieCard from "@/Components/MovieCard";
+import MovieCard from "@/Components/Movies/MovieCard";
 
 export default function Favorites() {
     const { favorites } = useFavorites();
@@ -18,9 +18,9 @@ export default function Favorites() {
                     </div>
                 ) : (
                     // Responsive grid layout
-                    
-                    <div 
-                    className="
+
+                    <div
+                        className="
                     grid 
                     grid-cols-2 
                     sm:grid-cols-3
@@ -28,13 +28,11 @@ export default function Favorites() {
                     lg:grid-cols-5 
                     gap-4 sm:gap-6
                 "
-                >
-                    {favorites.map((movie) => (
-                        <MovieCard key={movie.id} movie={movie} />
-                    ))}
-
+                    >
+                        {favorites.map((movie) => (
+                            <MovieCard key={movie.id} movie={movie} />
+                        ))}
                     </div>
-
                 )}
             </div>
         </AppLayout>

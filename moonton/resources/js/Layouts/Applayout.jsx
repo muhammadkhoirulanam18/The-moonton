@@ -1,7 +1,7 @@
-import Sidebar from "@/Components/Sidebar";
-import SidebarToggle from "@/Components/SidebarToggle";
+import Sidebar from "@/Components/Sidebar/Sidebar"
+import SidebarToggle from "@/Components/Sidebar/SidebarToggle";
 import { SidebarProvider } from "@/Components/Context/SidebarContext";
-import TopBar from "@/Components/TopBar";
+import TopBar from "@/Components/Topbar/TopBar";
 import { usePage } from "@inertiajs/react";
 
 export default function AppLayout({ children }) {

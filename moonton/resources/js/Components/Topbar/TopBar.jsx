@@ -8,13 +8,13 @@ export default function TopBar() {
                         type="text"
                         placeholder="Search movie, cast, genre"
                         className="
-                            w-full rounded-2xl bg-white dark:bg-gray-800 
+                            w-full rounded-3xl bg-white dark:bg-gray-800 
                             shadow-sm border border-gray-200 dark:border-gray-700 
                             pl-11 pr-4 py-2.5 text-sm 
-                            focus:outline-none focus:ring-2 focus:ring-orange-400/60
+                            focus:outline-none focus:ring-2 focus:ring-gray-300
                         "
                     />
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+                    <span className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400">
                         🔍
                     </span>
                 </div>

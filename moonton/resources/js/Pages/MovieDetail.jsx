@@ -2,7 +2,7 @@ import AppLayout from "@/Layouts/AppLayout";
 import { featuredMovies, browseMovies } from "@/Data/Movies";
 import useFavorites from "@/Hooks/useFavorites";
 import { router } from "@inertiajs/react";
-import VideoPlayer from "@/Components/VideoPlayer";
+import VideoPlayer from "@/Components/Movies/VideoPlayer";
 import { useMemo } from "react";
 
 export default function MovieDetail({ id }) {
